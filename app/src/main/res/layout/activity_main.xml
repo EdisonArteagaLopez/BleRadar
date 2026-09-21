@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!--
+      TÍTULO E STATUS:
+      - tvTitle: identifica a prática/app.
+      - tvStatus: mostra estado (pronto, pedindo permissão, scan ativo, etc.).
+    -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="BLE Radar"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Status: pronto"
+        android:paddingTop="6dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!--
+      BOTÕES:
+      - btnStart: inicia o scan BLE (após checar Bluetooth/permissões).
+      - btnStop: para o scan.
+      - Layout horizontal com pesos para ficar equilibrado em tela pequena (7").
+    -->
+    <LinearLayout
+        android:id="@+id/rowButtons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tvStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Iniciar scan" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnStop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Parar" />
+    </LinearLayout>
+
+    <!--
+      DICA:
+      - Texto curto para orientar o experimento: aproximar/afastar o celular.
+      - Ajuda a conectar RSSI ↔ proximidade ↔ radar.
+    -->
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Aproxime/afaste o celular e observe RSSI e radar."
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/rowButtons"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!--
+      RADAR (VIEW CUSTOM):
+      - RadarView é uma View desenhada via Canvas.
+      - Ela recebe a lista de DeviceInfo e desenha um ponto por dispositivo.
+      - Em tela 7", altura 200dp dá bom equilíbrio entre radar e lista.
+    -->
+    <com.example.bleradar.ui.RadarView
+        android:id="@+id/radarView"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tvHint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!--
+      LISTA (RecyclerView):
+      - Mostra dispositivos encontrados, com RSSI e proximidade.
+      - clipToPadding="false" permite que o usuário role até "passar" do padding.
+      - paddingBottom é um mínimo; o padding "real" é ajustado em runtime via WindowInsets para evitar que o último item fique escondido atrás da barra de navegação.
+    -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDevices"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/radarView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

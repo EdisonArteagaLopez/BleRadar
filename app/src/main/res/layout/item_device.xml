@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!--
+      LINHA 1: Nome (quando disponível).
+      - device.name pode ser null, então no adapter mostramos "(sem nome)".
+      - Usamos bold para destacar o "título" do item.
+    -->
+    <TextView
+        android:id="@+id/tvDeviceName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome do dispositivo"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <!--
+      LINHA 2: Endereço (MAC).
+      - Ajuda a diferenciar dispositivos com nome igual ou sem nome.
+      - Também serve como chave estável para mapear atualização de RSSI.
+    -->
+    <TextView
+        android:id="@+id/tvDeviceAddr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AA:BB:CC:DD:EE:FF"
+        android:textSize="13sp" />
+
+    <!--
+      LINHA 3: Métricas.
+      - RSSI bruto (dBm): valor instantâneo com ruído.
+      - RSSI suavizado: EMA para reduzir variação.
+      - Proximidade: classe categórica (VERY_NEAR, NEAR, MID, FAR).
+    -->
+    <TextView
+        android:id="@+id/tvDeviceRssi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RSSI: -70 dBm | Suavizado: -70.0 | Proximidade: MID"
+        android:textSize="13sp"
+        android:paddingTop="4dp"
+        android:paddingBottom="2dp" />
+
+</LinearLayout>
